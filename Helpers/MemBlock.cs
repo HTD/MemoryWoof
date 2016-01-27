@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
 namespace CodeDog.System {
 
@@ -17,11 +16,13 @@ namespace CodeDog.System {
 
         const int PAGE_SIZE_LOG2 = 17; // PageSize 1MB
 
-        T[][] Pages;
-        int PageSize;
-        int PageCount;
+        readonly T[][] Pages;
+        readonly int PageSize;
+        readonly int PageCount;
 
         #endregion
+
+        private readonly ulong OffsetMask;
 
         public MemBlock(ulong size, ulong clearLsb = 0x01) {
             var elementSize = (ulong)Marshal.SizeOf<T>();
@@ -34,25 +35,18 @@ namespace CodeDog.System {
             PageSize = 1 << PAGE_SIZE_LOG2;
             PageCount = (int)(Length >> PAGE_SIZE_LOG2);
             Pages = new T[PageCount][];
+            OffsetMask = (ulong)(PageSize - 1);
             for (int i = 0; i < PageCount; i++) Pages[i] = new T[PageSize];
         }
 
         public T this[ulong i] {
-            get {
-                int page = (int)(i >> PAGE_SIZE_LOG2);
-                int offset = (int)(i - ((ulong)page << PAGE_SIZE_LOG2));
-                return Pages[page][offset];
-            }
-            set {
-                int page = (int)(i >> PAGE_SIZE_LOG2);
-                int offset = (int)(i - ((ulong)page << PAGE_SIZE_LOG2));
-                Pages[page][offset] = value;
-            }
+            get { return Pages[(int)(i >> PAGE_SIZE_LOG2)][(int)(i & OffsetMask)]; }
+            set { Pages[(int)(i >> PAGE_SIZE_LOG2)][(int)(i & OffsetMask)] = value; }
         }
 
-        public double ToGibi() => Math.Round(Size / (double)0x40000000, 3);
+        public double ToGibi() => Size / (double)0x40000000;
 
-        public override string ToString() => $"[{ToGibi()}GB]";
+        public override string ToString() => $"[{ToGibi():0.000}GB]";
 
     }
 

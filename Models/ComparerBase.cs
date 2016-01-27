@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Timers;
 using CodeDog.MemoryWoof.Interfaces;
 using CodeDog.System;
 
@@ -17,6 +18,9 @@ namespace CodeDog.MemoryWoof.Models {
         protected ulong Iterations;
         protected const ulong Updates = 50;
         protected ulong T = 0; // Tick every T iterations
+
+        protected int UpdateCounter;
+        protected Timer UpdateTimer;
 
         private List<ComparerError> ErrorList = new List<ComparerError>();
         protected bool IsNewError;
@@ -47,7 +51,18 @@ namespace CodeDog.MemoryWoof.Models {
                 T = Iterations / Updates;
                 OnInitialized();
             }
+            if (UpdateTimer == null) {
+                UpdateTimer = new Timer(10);
+                UpdateTimer.Elapsed += ProgressUpdate;
+            }
             OnStarted();
+            UpdateCounter = 0;
+            UpdateTimer.Start();
+        }
+
+        protected virtual void ProgressUpdate(object sender, ElapsedEventArgs e) {
+            var n = (int)(Iteration / T);
+            if (n > UpdateCounter) { UpdateCounter = n; OnProgress(); }
         }
 
         /// <summary>
@@ -78,6 +93,9 @@ namespace CodeDog.MemoryWoof.Models {
         }
 
         public virtual void Collect() {
+            UpdateTimer.Stop();
+            UpdateTimer.Dispose();
+            UpdateTimer = null;
             Sample = null;
             GC.Collect();
         }
@@ -109,6 +127,7 @@ namespace CodeDog.MemoryWoof.Models {
         }
 
         protected virtual void OnDone() {
+            UpdateTimer.Stop();
             State.Tested_Last = Sample.Size;
             State.Tested_Total += State.Tested_Last;
             State.Time_LastDone = DateTime.Now;

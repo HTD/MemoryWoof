@@ -18,7 +18,7 @@ namespace CodeDog.MemoryWoof {
 
         static void ShowCredits() {
             var i = new AssemblyInfo();
-            X.WriteLine($"<name>{i.Name} {i.Version}</name>");
+            X.WriteLine($"<name>{i.Product} {i.Version}</name>");
             X.WriteLine($"<description>{i.Copyright}</description>");
             X.WriteLine();
             X.WriteLine($"<description>{i.Description}</description>");

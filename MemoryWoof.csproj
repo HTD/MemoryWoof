@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Comparers\SplitComparer.cs" />
     <Compile Include="Helpers\AssemblyInfo.cs" />
+    <Compile Include="Helpers\BigArray.cs" />
     <Compile Include="Helpers\ConsoleEx.cs" />
     <Compile Include="Helpers\ConsoleProgress.cs" />
     <Compile Include="Helpers\ConsoleState.cs" />
