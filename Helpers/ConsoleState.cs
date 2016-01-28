@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CodeDog.System.ConsoleExtensions {
+namespace CodeDog.Core.ConsoleExtensions {
 
     public class ConsoleState {
 

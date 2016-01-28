@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 
-namespace CodeDog.System.ConsoleExtensions {
+namespace CodeDog.Core.ConsoleExtensions {
 
     /// <summary>
     /// Console class extension

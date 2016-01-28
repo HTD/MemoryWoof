@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CodeDog.System.ConsoleExtensions {
+namespace CodeDog.Core.ConsoleExtensions {
 
     /// <summary>
     /// Allows displaying of dynamic console dot bar when other threads still output data to the console

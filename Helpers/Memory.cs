@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualBasic.Devices;
 
-namespace CodeDog.System {
+namespace CodeDog.Core {
 
     public static class Memory {
 
@@ -19,7 +19,7 @@ namespace CodeDog.System {
 
         public static ulong Available {
             get {
-#if DEBUG
+#if DEBUG1
                 var a = MaxAvailable - MEM_SAFETY_MARGIN;
                 return (a > 0x40000000) ? 0x40000000 : a;
 #else

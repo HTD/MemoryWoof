@@ -1,6 +1,6 @@
 ﻿using CodeDog.MemoryWoof.Comparers;
-using CodeDog.System;
-using CodeDog.System.ConsoleExtensions;
+using CodeDog.Core;
+using CodeDog.Core.ConsoleExtensions;
 
 namespace CodeDog.MemoryWoof {
 
@@ -12,7 +12,7 @@ namespace CodeDog.MemoryWoof {
 
         static void Main(string[] args) {
             ShowCredits();
-            Test(args);
+            TestVsTest(args);
             X.Wait(-1);
         }
 
@@ -26,7 +26,15 @@ namespace CodeDog.MemoryWoof {
         }
 
         static void Test(string[] args) {
-            new SplitComparer().Test(GetTestSizeInGB(args));
+            new Split().Test(GetTestSizeInGB(args));
+        }
+
+        static void TestVsTest(string[] args) {
+            new Split().Test(GetTestSizeInGB(args) / 3);
+            X.WriteLine();
+            new Mirror().Test(GetTestSizeInGB(args) / 3);
+            X.WriteLine();
+            new Direct().Test(GetTestSizeInGB(args) / 3);
         }
 
         static double GetTestSizeInGB(string[] args) {

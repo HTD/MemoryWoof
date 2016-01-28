@@ -1,6 +1,6 @@
 ﻿using System;
-using CodeDog.System;
-using CodeDog.System.ConsoleExtensions;
+using CodeDog.Core;
+using CodeDog.Core.ConsoleExtensions;
 
 namespace CodeDog.MemoryWoof.Models {
 
@@ -50,6 +50,7 @@ namespace CodeDog.MemoryWoof.Models {
                     e.B.ToString("x16"),
                     (e.A ^ e.B).ToString("x16")
                 );
+                X.Boop();
             }
         }
 

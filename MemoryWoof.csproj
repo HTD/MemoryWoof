@@ -31,6 +31,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
@@ -44,16 +45,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Comparers\SplitComparer.cs" />
+    <Compile Include="Comparers\Mirror.cs" />
+    <Compile Include="Comparers\Direct.cs" />
+    <Compile Include="Comparers\Split.cs" />
     <Compile Include="Helpers\AssemblyInfo.cs" />
-    <Compile Include="Helpers\BigArray.cs" />
     <Compile Include="Helpers\ConsoleEx.cs" />
     <Compile Include="Helpers\ConsoleProgress.cs" />
     <Compile Include="Helpers\ConsoleState.cs" />
     <Compile Include="Helpers\IConsoleExtension.cs" />
-    <Compile Include="Helpers\MemBlock.cs" />
+    <Compile Include="Helpers\Paged.cs" />
     <Compile Include="Helpers\Memory.cs" />
     <Compile Include="Interfaces\IComparer.cs" />
+    <Compile Include="Interfaces\IPattern.cs" />
     <Compile Include="Models\ComparerBase.cs" />
     <Compile Include="Models\ComparerConsole.cs" />
     <Compile Include="Models\ComparerError.cs" />
@@ -63,7 +66,7 @@
     <Compile Include="Models\ComparerStats.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Helpers\XorShiftStar64.cs" />
+    <Compile Include="Patterns\XorShiftStar64.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

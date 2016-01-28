@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Timers;
 using CodeDog.MemoryWoof.Interfaces;
-using CodeDog.System;
+using CodeDog.Core;
 
 namespace CodeDog.MemoryWoof.Models {
 
@@ -13,7 +13,7 @@ namespace CodeDog.MemoryWoof.Models {
         public string TestMessage { protected get; set; }
 
         protected ComparerState State;
-        protected MemBlock<ulong> Sample;
+        protected Paged<ulong> Sample;
         protected ulong Iteration;
         protected ulong Iterations;
         protected const ulong Updates = 50;
@@ -34,7 +34,7 @@ namespace CodeDog.MemoryWoof.Models {
         public event EventHandler<ComparerStats> Stats;
 
         protected virtual void AllocMem() {
-            Sample = new MemBlock<ulong>(Memory.Available);
+            Sample = new Paged<ulong>(Memory.Available);
             State = new ComparerState {
                 SampleSize = Sample.Size,
                 Time_FirstStarted = DateTime.Now
@@ -52,7 +52,7 @@ namespace CodeDog.MemoryWoof.Models {
                 OnInitialized();
             }
             if (UpdateTimer == null) {
-                UpdateTimer = new Timer(10);
+                UpdateTimer = new Timer(1); // this will load the other thread with a simple 1 bit operation, so relax
                 UpdateTimer.Elapsed += ProgressUpdate;
             }
             OnStarted();

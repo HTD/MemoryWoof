@@ -1,4 +1,4 @@
-﻿namespace CodeDog.System.ConsoleExtensions {
+﻿namespace CodeDog.Core.ConsoleExtensions {
 
     public interface IConsoleExtension {
 

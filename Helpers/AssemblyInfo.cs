@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Resources;
 
-namespace CodeDog.System {
+namespace CodeDog.Core {
 
     /// <summary>
     /// Quick access to current project's assebly information
